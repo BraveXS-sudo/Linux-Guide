@@ -1,3 +1,21 @@
+## Masaüstü Ortamı (Desktop Environment, DE) Nedir?
+
+Bir **masaüstü ortamı (DE)**, Linux veya diğer Unix tabanlı sistemlerde kullanıcı ile sistem arasındaki etkileşimi sağlayan görsel ve işlevsel arayüzdür.  
+
+Basitçe söylemek gerekirse, DE şunları içerir:
+
+- **Pencere yöneticisi:** Pencereleri açıp kapatma, boyutlandırma ve taşıma gibi işlemleri yönetir.  
+- **Panel ve menüler:** Başlat menüsü, sistem tepsisi, görev çubuğu gibi kullanıcı arayüzü elemanları.  
+- **Dosya yöneticisi:** Dosyaları gezmek, kopyalamak, taşımak ve yönetmek için kullanılan uygulama (örn. KDE’de Dolphin).  
+- **Uygulama ekosistemi:** Metin editörleri, terminal, PDF görüntüleyici gibi sistemle entegre uygulamalar.  
+- **Sistem ayarları arayüzü:** Tema, görünüm, klavye/mouse ayarları ve diğer yapılandırmalar için merkezi kontrol paneli.  
+
+> Basitçe: **Masaüstü ortamınız, bilgisayarınızın ekranınızda nasıl göründüğünü ve sizinle nasıl etkileşim kurduğunu belirler.** Temel olarak sisteminizi görsel olarak kullanmanızı sağlayan her şeydir.  
+
+Farklı DE’ler farklı tasarım felsefelerine sahiptir: bazıları minimal ve hafif, bazıları ise modern ve estetik özelliklerle doludur. KDE Plasma ise bu DE’ler arasında **modernlik, özelleştirilebilirlik ve uygulama uyumu** ile öne çıkar.
+
+
+
 ## 1. KDE Plasma – Modern ve Güçlü Masaüstü
 
 KDE Plasma, modern Linux deneyiminin zirvesidir. Özelleştirme, performans ve uygulama uyumu açısından öne çıkar:
