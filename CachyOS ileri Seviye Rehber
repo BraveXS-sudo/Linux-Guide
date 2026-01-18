@@ -1,0 +1,130 @@
+# CachyOS Kurulum Rehberi
+
+Bu rehber, CachyOS’un modern kurulumu, disk bölümlendirme ve dosya sistemlerini detaylı şekilde açıklar. README.md formatında hazırlanmıştır ve GitHub’a direkt koymaya uygundur.
+
+---
+
+## 1. ISO’yu İndirin
+
+CachyOS ISO dosyasını resmi siteden indirin: [https://cachyos.org/](https://cachyos.org/)  
+- **Download** → **Desktop** sürümünü seçin.
+
+---
+
+## 2. Rufus ile Canlı USB Oluşturun
+
+ISO’yu USB’ye yazmak için Rufus kullanın: [https://rufus.ie/en/](https://rufus.ie/en/)
+
+- **amd64 / x86_64** sürümünü kurun.
+- USB en az 16 GB olmalı.
+- ISO’yu seçin, **Partition scheme: GPT** seçin.
+- **Start** → işlem bitene kadar bekleyin.
+
+---
+
+## 3. UEFI/BIOS ve Secure Boot
+
+- Bilgisayarı yeniden başlatın ve UEFI/BIOS’a girin (**F12, F10, ESC veya DEL** tuşları).
+- **Secure Boot**’u kapatın:
+  1. BIOS/UEFI’de “Security” veya “Boot” menüsünü açın
+  2. **Secure Boot** seçeneğini bulun
+  3. **Disabled** olarak ayarlayın ve kaydedip çıkın
+
+> Secure Boot kapalı olmalıdır; aksi takdirde Linux boot edemez veya bazı sürücüler çalışmaz.
+
+---
+
+## 4. Disk Bölümlendirme
+
+### 4.1 Manual Partitioning vs Erase Disk
+
+| Seçenek | Açıklama | Ne zaman kullanılır |
+|----------|----------|-------------------|
+| **Manual Partitioning** | Kendi bölümleme yapınızı oluşturur, boyutları, filesystem’leri ve mount point’leri manuel seçersiniz | Mevcut işletim sistemi varsa veya özel bir bölümleme planınız varsa |
+| **Erase Disk** | Seçilen diski tamamen siler ve Linux için otomatik bölümlendirme yapar | Disk yeni ise, format atacaksanız veya tüm diskin Linux olmasını istiyorsanız |
+
+> Özet: Yeni veya tamamen Linux’a ayıracağınız disklerde **Erase Disk** seçmek en güvenli ve hızlı yoldur. Mevcut veriyi korumak istiyorsanız **Manual Partitioning** tercih edilir.
+
+---
+
+### 4.2 GParted ile Bölümleme (Manual Partitioning)
+
+- Canlı USB ile açın ve GParted’i başlatın (`sudo pacman -S gparted` gerekirse).
+- Sağ üstten doğru diski seçin (örn. `/dev/sda`).
+- Mevcut diskleri kontrol edin ve verilerinizi yedekleyin.
+
+#### Önerilen Bölümler
+
+| Bölüm | Boyut | Dosya Sistemi | Flag | Açıklama |
+|-------|-------|---------------|------|----------|
+| EFI Sistem Bölümü | 2 GB | FAT32 | boot, esp | Bilgisayarın açılmasını sağlayan bölüm. Bootloader burada bulunur. |
+| Root (/)** | Minimum 20 GB | ext4 veya btrfs | - | Sistem dosyaları burada bulunur. Linux’un “sistem kökü”. |
+| Swap | RAM boyutu kadar (4–16 GB) | swap | - | Bellek yetmediğinde sistem kullanılır. |
+
+> **Bootloader nedir?**  
+Bootloader, bilgisayar açılırken işletim sisteminizi başlatan küçük bir programdır. EFI bölümünde bulunur ve hangi OS’in açılacağını yönetir.  
+
+**Önerilen Bootloader:**  
+- **systemd-boot** → Modern, hafif ve basit. EFI ile uyumlu, dual boot için ideal.  
+- **GRUB** → Eski ve yaygın. Daha fazla özellik ama biraz karmaşık.  
+- **rEFInd** → Grafiksel ve kullanıcı dostu, özellikle çoklu OS kurulumları için.
+
+---
+
+### 4.3 Shrink / Yer Açma
+
+- Shrink yapmak istediğiniz bölüme sağ tıklayın → **Resize/Move**
+- Free space preceding (MiB): 0
+- New size (MiB): istediğiniz boyut
+- Free space following (MiB): Auto
+
+---
+
+### 4.4 Dosya Sistemleri (15+ Önemli Filesystem)
+
+1. **ext4** – Kararlı, Linux’ta en yaygın. Root ve Home için ideal.  
+2. **ext3** – Eski sürüm, az özellik.  
+3. **ext2** – Çok eski Linux dosya sistemi.  
+4. **btrfs** – Modern, snapshot ve veri koruma.  
+5. **XFS** – Büyük dosyalar/diskler için optimize.  
+6. **FAT32** – EFI/USB için, 4 GB limit.  
+7. **exFAT** – FAT32’nin geliştirilmiş versiyonu.  
+8. **NTFS** – Windows uyumlu, root için önerilmez.  
+9. **swap** – RAM yetmezse kullanılır.  
+10. **ReiserFS** – Küçük dosyalar için optimize.  
+11. **JFS** – IBM tarafından, hızlı log’lama.  
+12. **ZFS** – Snapshot ve veri bütünlüğü.  
+13. **F2FS** – Flash tabanlı diskler için optimize.  
+14. **UFS** – BSD sistemlerde kullanılır.  
+15. **HFS+ / APFS** – MacOS uyumlu.  
+16. **ISO9660** – CD/DVD diskler için.
+
+> Root için genellikle **ext4** veya **btrfs**, EFI için **FAT32**, swap RAM’e göre ayarlanır.
+
+---
+
+## 5. Değişiklikleri Uygulama
+
+- Tüm işlemler tamamlandığında **Apply All Operations** tuşuna basın.
+- İşlem sırasında bilgisayarı kapatmayın.
+
+---
+
+## 6. Kurulum ve Boot
+
+- Root ve Swap bölümlerini mount edin.
+- Bootloader otomatik olarak EFI bölümüne kurulur (systemd-boot önerilir).
+- Sistem kurulumu tamamlandıktan sonra bilgisayarı yeniden başlatın.
+
+> Artık CachyOS hazır, Secure Boot kapalı ve EFI/Root yapılandırması modern bir şekilde yapılmış durumda.
+
+---
+
+## 7. Öneriler
+
+- Yeni bir cihaz veya format atılacaksa **Erase Disk** kullanın.  
+- Mevcut işletim sistemi varsa veya özelleştirilmiş yapı planınız varsa **Manual Partitioning** kullanın.  
+- EFI bölümü 2 GB olmalıdır, özellikle dual boot durumları için.  
+- systemd-boot önerilen bootloader’dır, ancak GRUB ve rEFInd de alternatiflerdir.
+
+---
