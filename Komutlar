@@ -1,0 +1,652 @@
+# Linux Komut Kılavuzu - Yeni Başlayanlar İçin En Çok Kullanılan 100 Komut
+
+## Dosya ve Dizin İşlemleri
+
+### 1. `ls` - Dosya ve dizinleri listele
+```bash
+ls              # Mevcut dizindeki dosyaları listele
+ls -l           # Detaylı liste
+ls -a           # Gizli dosyaları da göster
+ls -lh          # Dosya boyutlarını okunabilir formatta göster
+```
+
+### 2. `cd` - Dizin değiştir
+```bash
+cd /home/user   # Belirtilen dizine git
+cd ..           # Bir üst dizine git
+cd ~            # Ev dizinine git
+cd -            # Önceki dizine git
+```
+
+### 3. `pwd` - Mevcut dizini göster
+```bash
+pwd             # Bulunduğun tam dizin yolunu gösterir
+```
+
+### 4. `mkdir` - Yeni dizin oluştur
+```bash
+mkdir yeni_klasor           # Yeni bir dizin oluştur
+mkdir -p a/b/c              # İç içe dizinler oluştur
+mkdir klasor1 klasor2       # Birden fazla dizin oluştur
+```
+
+### 5. `rmdir` - Boş dizin sil
+```bash
+rmdir bos_klasor            # Boş bir dizini sil
+```
+
+### 6. `rm` - Dosya veya dizin sil
+```bash
+rm dosya.txt                # Dosya sil
+rm -r klasor                # Dizin ve içindekileri sil
+rm -rf klasor               # Zorla sil (dikkatli kullanın!)
+rm *.txt                    # Tüm .txt dosyalarını sil
+```
+
+### 7. `cp` - Dosya veya dizin kopyala
+```bash
+cp kaynak.txt hedef.txt     # Dosya kopyala
+cp -r klasor1 klasor2       # Dizin kopyala
+cp *.txt yedek/             # Tüm .txt dosyalarını yedek klasörüne kopyala
+```
+
+### 8. `mv` - Dosya veya dizin taşı/yeniden adlandır
+```bash
+mv eski.txt yeni.txt        # Dosyayı yeniden adlandır
+mv dosya.txt /home/user/    # Dosyayı taşı
+mv klasor1 klasor2          # Dizini taşı veya yeniden adlandır
+```
+
+### 9. `touch` - Boş dosya oluştur veya zaman damgasını güncelle
+```bash
+touch yeni_dosya.txt        # Boş dosya oluştur
+touch dosya1 dosya2         # Birden fazla dosya oluştur
+```
+
+### 10. `file` - Dosya türünü göster
+```bash
+file dosya.txt              # Dosya türünü belirle
+```
+
+## Dosya İçeriği ve Metin İşlemleri
+
+### 11. `cat` - Dosya içeriğini göster
+```bash
+cat dosya.txt               # Dosya içeriğini ekrana yazdır
+cat dosya1 dosya2           # Birden fazla dosyayı göster
+cat > yeni.txt              # Yeni dosya oluştur ve içerik yaz (Ctrl+D ile bitir)
+```
+
+### 12. `less` - Dosyayı sayfa sayfa göster
+```bash
+less dosya.txt              # Dosyayı sayfa sayfa görüntüle (q ile çık)
+```
+
+### 13. `more` - Dosyayı sayfa sayfa göster
+```bash
+more dosya.txt              # Dosyayı sayfa sayfa göster
+```
+
+### 14. `head` - Dosyanın başını göster
+```bash
+head dosya.txt              # İlk 10 satırı göster
+head -n 20 dosya.txt        # İlk 20 satırı göster
+```
+
+### 15. `tail` - Dosyanın sonunu göster
+```bash
+tail dosya.txt              # Son 10 satırı göster
+tail -n 20 dosya.txt        # Son 20 satırı göster
+tail -f log.txt             # Dosyayı canlı takip et
+```
+
+### 16. `grep` - Metin ara
+```bash
+grep "kelime" dosya.txt     # Dosyada kelime ara
+grep -r "kelime" .          # Dizinde recursive arama
+grep -i "kelime" dosya.txt  # Büyük/küçük harf duyarsız arama
+grep -n "kelime" dosya.txt  # Satır numaralarıyla göster
+```
+
+### 17. `find` - Dosya ve dizin ara
+```bash
+find . -name "dosya.txt"    # İsme göre ara
+find /home -type f          # Sadece dosyaları ara
+find . -type d              # Sadece dizinleri ara
+find . -size +10M           # 10MB'dan büyük dosyaları ara
+```
+
+### 18. `locate` - Dosya hızlıca bul
+```bash
+locate dosya.txt            # Veritabanından hızlı arama
+sudo updatedb               # Veritabanını güncelle
+```
+
+### 19. `wc` - Satır, kelime ve karakter say
+```bash
+wc dosya.txt                # Satır, kelime, byte sayısı
+wc -l dosya.txt             # Sadece satır sayısı
+wc -w dosya.txt             # Sadece kelime sayısı
+```
+
+### 20. `sort` - Satırları sırala
+```bash
+sort dosya.txt              # Alfabetik sırala
+sort -r dosya.txt           # Ters sırala
+sort -n dosya.txt           # Sayısal sırala
+```
+
+### 21. `uniq` - Tekrar eden satırları kaldır
+```bash
+uniq dosya.txt              # Ardışık tekrarları kaldır
+sort dosya.txt | uniq       # Önce sırala sonra tekrarları kaldır
+uniq -c dosya.txt           # Tekrar sayısını göster
+```
+
+### 22. `diff` - Dosyaları karşılaştır
+```bash
+diff dosya1.txt dosya2.txt  # İki dosyayı karşılaştır
+diff -u dosya1 dosya2       # Unified format
+```
+
+### 23. `cut` - Satırlardan sütun kes
+```bash
+cut -d ':' -f1 /etc/passwd  # ':' ayracıyla 1. sütunu al
+cut -c1-10 dosya.txt        # İlk 10 karakteri al
+```
+
+### 24. `sed` - Metin akışı düzenleyici
+```bash
+sed 's/eski/yeni/' dosya.txt        # İlk eşleşmeyi değiştir
+sed 's/eski/yeni/g' dosya.txt       # Tüm eşleşmeleri değiştir
+sed -i 's/eski/yeni/g' dosya.txt    # Dosyayı yerinde düzenle
+```
+
+### 25. `awk` - Metin işleme dili
+```bash
+awk '{print $1}' dosya.txt          # İlk sütunu yazdır
+awk -F ':' '{print $1}' /etc/passwd # Ayraç belirterek sütun yazdır
+```
+
+### 26. `echo` - Metin yazdır
+```bash
+echo "Merhaba Dünya"        # Metin yazdır
+echo $PATH                  # Değişken değerini yazdır
+echo "metin" > dosya.txt    # Dosyaya yaz (üzerine)
+echo "metin" >> dosya.txt   # Dosyaya ekle
+```
+
+### 27. `nano` - Basit metin editörü
+```bash
+nano dosya.txt              # Dosyayı düzenle (Ctrl+X ile çık)
+```
+
+### 28. `vim` - Gelişmiş metin editörü
+```bash
+vim dosya.txt               # Dosyayı düzenle (ESC :q ile çık)
+```
+
+## Sistem Bilgisi ve Yönetimi
+
+### 29. `uname` - Sistem bilgisi
+```bash
+uname -a                    # Tüm sistem bilgileri
+uname -r                    # Kernel versiyonu
+```
+
+### 30. `hostname` - Bilgisayar adı
+```bash
+hostname                    # Bilgisayar adını göster
+hostname -I                 # IP adresini göster
+```
+
+### 31. `uptime` - Sistem açık kalma süresi
+```bash
+uptime                      # Sistem ne kadar süredir açık
+```
+
+### 32. `date` - Tarih ve saat
+```bash
+date                        # Güncel tarih ve saat
+date +%Y-%m-%d              # Özel format
+```
+
+### 33. `cal` - Takvim
+```bash
+cal                         # Bu ayın takvimi
+cal 2024                    # Yıllık takvim
+```
+
+### 34. `whoami` - Mevcut kullanıcı
+```bash
+whoami                      # Şu anki kullanıcı adı
+```
+
+### 35. `who` - Giriş yapmış kullanıcılar
+```bash
+who                         # Sistemdeki kullanıcılar
+```
+
+### 36. `w` - Kullanıcı aktiviteleri
+```bash
+w                           # Kullanıcılar ve ne yapıyorlar
+```
+
+### 37. `last` - Son girişler
+```bash
+last                        # Son kullanıcı girişleri
+last -n 10                  # Son 10 giriş
+```
+
+### 38. `history` - Komut geçmişi
+```bash
+history                     # Kullanılan komutları göster
+history | grep "komut"      # Geçmişte komut ara
+!123                        # 123 numaralı komutu tekrar çalıştır
+```
+
+### 39. `clear` - Ekranı temizle
+```bash
+clear                       # Terminal ekranını temizle
+```
+
+### 40. `man` - Kılavuz sayfaları
+```bash
+man ls                      # ls komutunun kılavuzu
+man -k keyword              # Anahtar kelimeye göre ara
+```
+
+### 41. `info` - Bilgi sayfaları
+```bash
+info ls                     # Komut hakkında detaylı bilgi
+```
+
+### 42. `whatis` - Komut ne yapar
+```bash
+whatis ls                   # Komutun kısa açıklaması
+```
+
+### 43. `which` - Komutun konumu
+```bash
+which python                # Komutun tam yolu
+```
+
+### 44. `whereis` - Dosya konumları
+```bash
+whereis ls                  # Binary, kaynak ve man sayfası konumları
+```
+
+## Kullanıcı ve İzin Yönetimi
+
+### 45. `sudo` - Süper kullanıcı yetkisiyle çalıştır
+```bash
+sudo komut                  # Komutu root olarak çalıştır
+sudo -i                     # Root shell aç
+sudo -u kullanici komut     # Başka kullanıcı olarak çalıştır
+```
+
+### 46. `su` - Kullanıcı değiştir
+```bash
+su                          # Root kullanıcısına geç
+su - kullanici              # Başka kullanıcıya geç
+```
+
+### 47. `chmod` - Dosya izinlerini değiştir
+```bash
+chmod 755 dosya.sh          # rwxr-xr-x izinleri
+chmod +x script.sh          # Çalıştırılabilir yap
+chmod -R 644 klasor/        # Recursive izin değiştir
+```
+
+### 48. `chown` - Dosya sahibini değiştir
+```bash
+chown kullanici dosya.txt   # Sahibi değiştir
+chown kullanici:grup dosya  # Sahip ve grubu değiştir
+chown -R kullanici klasor/  # Recursive sahip değiştir
+```
+
+### 49. `chgrp` - Grup değiştir
+```bash
+chgrp grup dosya.txt        # Dosyanın grubunu değiştir
+```
+
+### 50. `passwd` - Şifre değiştir
+```bash
+passwd                      # Kendi şifreni değiştir
+sudo passwd kullanici       # Başka kullanıcının şifresini değiştir
+```
+
+### 51. `useradd` - Kullanıcı ekle
+```bash
+sudo useradd yenikullanici  # Yeni kullanıcı oluştur
+sudo useradd -m -s /bin/bash kullanici  # Ev dizini ve shell ile
+```
+
+### 52. `userdel` - Kullanıcı sil
+```bash
+sudo userdel kullanici      # Kullanıcıyı sil
+sudo userdel -r kullanici   # Kullanıcı ve ev dizinini sil
+```
+
+### 53. `usermod` - Kullanıcı bilgilerini düzenle
+```bash
+sudo usermod -aG grup kullanici  # Kullanıcıyı gruba ekle
+```
+
+### 54. `groupadd` - Grup oluştur
+```bash
+sudo groupadd yenigrup      # Yeni grup oluştur
+```
+
+### 55. `id` - Kullanıcı kimliği
+```bash
+id                          # Kullanıcı ve grup bilgileri
+id kullanici                # Belirli kullanıcının bilgileri
+```
+
+## Ağ Komutları
+
+### 56. `ping` - Ağ bağlantısını test et
+```bash
+ping google.com             # Host'a ping at
+ping -c 4 google.com        # 4 paket gönder
+```
+
+### 57. `ifconfig` - Ağ arayüzü yapılandırması (eski)
+```bash
+ifconfig                    # Ağ arayüzlerini göster
+```
+
+### 58. `ip` - Ağ yapılandırması (yeni)
+```bash
+ip addr show                # IP adreslerini göster
+ip link show                # Ağ arayüzlerini göster
+ip route show               # Routing tablosunu göster
+```
+
+### 59. `netstat` - Ağ istatistikleri
+```bash
+netstat -tuln               # Dinleyen portları göster
+netstat -r                  # Routing tablosu
+```
+
+### 60. `ss` - Socket istatistikleri (netstat'ın yerine)
+```bash
+ss -tuln                    # Dinleyen TCP/UDP portları
+ss -s                       # Özet istatistikler
+```
+
+### 61. `curl` - URL'den veri çek
+```bash
+curl https://example.com    # Web sayfasını indir
+curl -O https://site.com/dosya.zip  # Dosya indir
+curl -I https://site.com    # Sadece header bilgisi
+```
+
+### 62. `wget` - Dosya indir
+```bash
+wget https://site.com/dosya.zip     # Dosya indir
+wget -c https://site.com/dosya.zip  # Kaldığı yerden devam et
+```
+
+### 63. `ssh` - Güvenli uzak bağlantı
+```bash
+ssh kullanici@sunucu       # Uzak sunucuya bağlan
+ssh -p 2222 kullanici@ip   # Farklı port ile bağlan
+```
+
+### 64. `scp` - Güvenli dosya kopyalama
+```bash
+scp dosya.txt kullanici@sunucu:/hedef/  # Uzağa kopyala
+scp kullanici@sunucu:/dosya.txt .       # Uzaktan kopyala
+```
+
+### 65. `rsync` - Dosya senkronizasyonu
+```bash
+rsync -avz kaynak/ hedef/   # Senkronize et
+rsync -avz dosya kullanici@sunucu:/hedef/  # Uzağa senkronize
+```
+
+### 66. `nslookup` - DNS sorgusu
+```bash
+nslookup google.com         # IP adresini öğren
+```
+
+### 67. `dig` - DNS araştırma aracı
+```bash
+dig google.com              # Detaylı DNS bilgisi
+dig +short google.com       # Kısa çıktı
+```
+
+### 68. `traceroute` - Ağ yolu izle
+```bash
+traceroute google.com       # Paketlerin yolunu izle
+```
+
+### 69. `host` - DNS lookup
+```bash
+host google.com             # IP adresini bul
+```
+
+## Süreç Yönetimi
+
+### 70. `ps` - Çalışan süreçleri göster
+```bash
+ps                          # Mevcut terminal süreçleri
+ps aux                      # Tüm süreçler detaylı
+ps -ef                      # Tüm süreçler farklı format
+```
+
+### 71. `top` - Dinamik süreç görüntüleyici
+```bash
+top                         # Süreçleri canlı izle (q ile çık)
+```
+
+### 72. `htop` - Gelişmiş süreç görüntüleyici
+```bash
+htop                        # Renkli ve interaktif süreç izleyici
+```
+
+### 73. `kill` - Süreci sonlandır
+```bash
+kill 1234                   # PID 1234'ü sonlandır
+kill -9 1234                # Zorla sonlandır
+```
+
+### 74. `killall` - İsme göre süreç sonlandır
+```bash
+killall firefox             # Tüm firefox süreçlerini sonlandır
+```
+
+### 75. `pkill` - Pattern ile süreç sonlandır
+```bash
+pkill -f "script.py"        # Script adıyla süreç sonlandır
+```
+
+### 76. `bg` - Süreci arka plana al
+```bash
+bg                          # Durdurulan süreci arka plana al
+```
+
+### 77. `fg` - Süreci ön plana al
+```bash
+fg                          # Arka plan sürecini ön plana al
+```
+
+### 78. `jobs` - Arka plan işlerini göster
+```bash
+jobs                        # Mevcut shell'in arka plan işleri
+```
+
+### 79. `nohup` - Oturum kapansa bile çalışmaya devam et
+```bash
+nohup komut &               # Oturumdan bağımsız çalıştır
+```
+
+### 80. `nice` - Süreç önceliği ile başlat
+```bash
+nice -n 10 komut            # Düşük öncelikle başlat
+```
+
+### 81. `renice` - Çalışan sürecin önceliğini değiştir
+```bash
+renice -n 5 -p 1234         # PID 1234'ün önceliğini değiştir
+```
+
+## Arşiv ve Sıkıştırma
+
+### 82. `tar` - Arşiv oluştur/aç
+```bash
+tar -cvf arsiv.tar klasor/      # Arşiv oluştur
+tar -xvf arsiv.tar              # Arşivi aç
+tar -czvf arsiv.tar.gz klasor/  # Sıkıştırılmış arşiv oluştur
+tar -xzvf arsiv.tar.gz          # Sıkıştırılmış arşivi aç
+```
+
+### 83. `gzip` - Dosya sıkıştır
+```bash
+gzip dosya.txt              # dosya.txt.gz oluştur
+gzip -d dosya.txt.gz        # Sıkıştırmayı aç
+```
+
+### 84. `gunzip` - Gzip açma
+```bash
+gunzip dosya.txt.gz         # Sıkıştırılmış dosyayı aç
+```
+
+### 85. `zip` - ZIP arşivi oluştur
+```bash
+zip arsiv.zip dosya1 dosya2     # ZIP oluştur
+zip -r arsiv.zip klasor/        # Dizini ZIP'le
+```
+
+### 86. `unzip` - ZIP arşivini aç
+```bash
+unzip arsiv.zip             # ZIP'i aç
+unzip -l arsiv.zip          # İçeriği listele
+```
+
+### 87. `bzip2` - Bzip2 sıkıştırma
+```bash
+bzip2 dosya.txt             # dosya.txt.bz2 oluştur
+bzip2 -d dosya.txt.bz2      # Aç
+```
+
+## Disk ve Dosya Sistemi
+
+### 88. `df` - Disk kullanımı
+```bash
+df -h                       # İnsan okunabilir formatta
+df -T                       # Dosya sistemi türleriyle
+```
+
+### 89. `du` - Dizin boyutu
+```bash
+du -sh klasor/              # Dizin toplam boyutu
+du -h --max-depth=1         # Alt dizinlerin boyutları
+```
+
+### 90. `mount` - Dosya sistemi bağla
+```bash
+sudo mount /dev/sdb1 /mnt   # Bölümü bağla
+mount                       # Bağlı sistemleri göster
+```
+
+### 91. `umount` - Dosya sistemi ayır
+```bash
+sudo umount /mnt            # Bölümü ayır
+```
+
+### 92. `fdisk` - Disk bölümleme
+```bash
+sudo fdisk -l               # Diskleri listele
+sudo fdisk /dev/sdb         # Disk bölümle
+```
+
+### 93. `lsblk` - Blok cihazları listele
+```bash
+lsblk                       # Tüm blok cihazlar
+lsblk -f                    # Dosya sistemiyle
+```
+
+### 94. `blkid` - Blok cihaz özellikleri
+```bash
+sudo blkid                  # UUID ve dosya sistemi bilgileri
+```
+
+### 95. `mkfs` - Dosya sistemi oluştur
+```bash
+sudo mkfs.ext4 /dev/sdb1    # ext4 dosya sistemi oluştur
+sudo mkfs.ntfs /dev/sdb1    # NTFS dosya sistemi oluştur
+```
+
+### 96. `fsck` - Dosya sistemi kontrolü
+```bash
+sudo fsck /dev/sdb1         # Dosya sistemi hatalarını kontrol et
+```
+
+## Çeşitli Yararlı Komutlar
+
+### 97. `alias` - Komut kısayolu oluştur
+```bash
+alias ll='ls -la'           # ll kısayolu oluştur
+alias rm='rm -i'            # rm için onay iste
+unalias ll                  # Alias'ı kaldır
+```
+
+### 98. `export` - Ortam değişkeni belirle
+```bash
+export PATH=$PATH:/yeni/yol     # PATH'e ekle
+export EDITOR=nano              # Varsayılan editörü belirle
+```
+
+### 99. `source` - Script dosyasını çalıştır
+```bash
+source ~/.bashrc            # bashrc'yi yeniden yükle
+. ~/.bashrc                 # Alternatif kullanım
+```
+
+### 100. `xargs` - Komut satırı argümanları oluştur
+```bash
+find . -name "*.txt" | xargs rm     # Bulunan dosyaları sil
+ls | xargs -I {} echo "Dosya: {}"   # Her satır için komut çalıştır
+```
+
+---
+
+## Bonus: Pipe (|) ve Yönlendirme Operatörleri
+
+### Pipe (|)
+Bir komutun çıktısını başka bir komutun girdisi olarak kullanır:
+```bash
+ls -l | grep ".txt"         # ls çıktısında .txt ara
+cat dosya.txt | wc -l       # Dosyanın satır sayısını bul
+ps aux | grep firefox       # firefox süreçlerini bul
+```
+
+### Yönlendirme (>, >>, <)
+```bash
+komut > dosya.txt           # Çıktıyı dosyaya yaz (üzerine)
+komut >> dosya.txt          # Çıktıyı dosyaya ekle
+komut < giris.txt           # Dosyayı girdi olarak kullan
+komut 2> hata.txt           # Hata mesajlarını dosyaya yaz
+komut &> tum.txt            # Hem çıktı hem hata dosyaya
+```
+
+## Klavye Kısayolları
+
+- `Ctrl + C` - Çalışan komutu durdur
+- `Ctrl + Z` - Komutu duraklat (bg ile devam ettir)
+- `Ctrl + D` - Terminal'den çık veya EOF
+- `Ctrl + L` - Ekranı temizle (clear gibi)
+- `Ctrl + A` - Satır başına git
+- `Ctrl + E` - Satır sonuna git
+- `Ctrl + U` - İmlecin solundaki her şeyi sil
+- `Ctrl + K` - İmlecin sağındaki her şeyi sil
+- `Ctrl + R` - Komut geçmişinde ara
+- `Tab` - Otomatik tamamlama
+- `Tab Tab` - Tüm seçenekleri göster
+
+---
+
+**Not:** Bu kılavuz genel Linux dağıtımları için hazırlanmıştır. Bazı komutlar sisteminizde kurulu olmayabilir veya farklı şekilde çalışabilir.''bash shell komudu ldugunu gosterir
