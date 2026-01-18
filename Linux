@@ -173,6 +173,131 @@ flatpak info org.bazaar.Bazaar
 > Özet: Flatpak, sisteminizi bozmadan uygulama yüklemenizi sağlar.
 > **Bazaar**, Flatpak uygulamalarını kolayca bulup indirmenize yardımcı olan kullanışlı bir uygulamadır.
 
+``` Eglence (bash yazisini unutun AI salaklamasidir)
+
+## Eğlence ve Sistem Bilgi Araçları
+
+Linux terminali sadece sistem yönetimi için değil, aynı zamanda eğlence ve görsel araçlar için de kullanılabilir.  
+CachyOS’ta yay/AUR ile kolayca yükleyebileceğiniz bazı araçlar:
+
+### 1. fastfetch
+- Sistem bilgilerini hızlı ve estetik bir şekilde gösterir.
+- Kurulum:
+
+```bash
+yay -S fastfetch
+````
+
+* Kullanım:
+
+```bash
+fastfetch
 ```
 
 ---
+
+### 2. htop
+
+* Sistem süreçlerini ve kaynak kullanımını görsel olarak takip etmek için.
+* Kurulum:
+
+```bash
+yay -S htop
+```
+
+* Kullanım:
+
+```bash
+htop
+```
+
+---
+
+### 3. brop
+
+* Terminalde basit animasyon ve görsel efektler için (genellikle AUR üzerinden).
+* Kurulum:
+
+```bash
+yay -S brop
+```
+
+* Kullanım:
+
+```bash
+brop
+```
+
+---
+
+### 4. gotop
+
+* Terminalde gelişmiş ve renkli sistem monitor arayüzü.
+* Kurulum:
+
+```bash
+yay -S gotop
+```
+
+* Kullanım:
+
+```bash
+gotop
+```
+
+---
+
+### 5. cava
+
+* Terminalde gerçek zamanlı ses görselleştirme (Audio Visualizer).
+* Kurulum:
+
+```bash
+yay -S cava
+```
+
+* Kullanım:
+
+```bash
+cava
+```
+
+---
+
+### 6. asciiaquarium
+
+* Terminalde ASCII balık akvaryumu gösterir.
+* Kurulum:
+
+```bash
+yay -S asciiquarium
+```
+
+* Kullanım:
+
+```bash
+asciiquarium
+```
+
+---
+
+### 7. cmatrix
+
+* Terminalde Matrix filmindeki kayan yeşil yazılar efekti.
+* Kurulum:
+
+```bash
+yay -S cmatrix
+```
+
+* Kullanım:
+
+```bash
+cmatrix
+```
+
+---
+
+> Bu araçlar hem eğlence hem de terminal deneyimini geliştirmek için harikadır.
+> Yay/AUR sayesinde hepsi kolayca kurulabilir ve sisteminize zarar vermez.
+
