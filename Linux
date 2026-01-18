@@ -1,0 +1,105 @@
+# CachyOS Sistem Çekirdeği Rehberi
+
+Bu rehber, CachyOS ve Linux sistemlerinin temel bileşenlerini ve yönetim araçlarını kapsamlı şekilde açıklar.  
+Rehberi tamamlayan kullanıcılar **orta seviyeden ileri kullanıcı** seviyesine ulaşabilir.
+
+---
+
+## 1. Linux Sistemi Genel Bakış
+
+Linux sistemi birkaç katmandan oluşur:
+
+- **Kernel (Çekirdek):** Sistem çekirdeği, donanımı, bellek yönetimini, işlemleri ve sistem çağrılarını kontrol eder.  
+- **Shell (Kabuk):** Kernel ile kullanıcı arasında komut arayüzü sağlar. Örnekler: `bash`, `zsh`, `fish`.  
+- **Terminal:** Shell’e erişim sağlayan uygulama.  
+- **Init / Sistem Yöneticisi:** Sistem açılışı, servisler ve arka plan görevlerini yönetir (CachyOS’ta **systemd**).  
+- **Dosya Sistemi:** Dosyalar ve dizinlerin organize edildiği yapı. Örn: `/`, `/home`, `/etc`, `/usr`.
+
+> Basitçe: Masaüstü ortamınız, ekranınızın ve sisteminizin görünümünü ve kullanımını belirler.
+
+---
+
+## 2. Paket Yönetimi
+
+### Pacman
+
+Arch tabanlı sistemlerde temel paket yöneticisi:
+
+- Kurulum: `sudo pacman -S paket_ismi`  
+- Kaldırma: `sudo pacman -Rns paket_ismi` → Paket ve bağımlılıkları temiz siler  
+- Güncelleme: `sudo pacman -Syu`  
+- Arama: `pacman -Ss paket_ismi`  
+- Paket bilgisi: `pacman -Qi paket_ismi`  
+
+### AUR ve Yay / Paru
+
+- **AUR (Arch User Repository):** Kullanıcı topluluğu tarafından oluşturulmuş paket deposudur.  
+- **Yay / Paru:** AUR paketlerini yüklemek, güncellemek, aramak ve silmek için kullanılır:  
+  - Kurulum: `yay -S paket_ismi`  
+  - Güncelleme: `yay -Syu`  
+  - Arama: `yay -Ss paket_ismi`  
+  - Kaldırma: `yay -Rns paket_ismi` → AUR paketlerini ve gereksiz bağımlılıkları temiz siler
+
+> AUR, Arch tabanlı sistemlerde resmi paketlerin dışında yazılım yüklemek için kritik bir kaynaktır.
+
+---
+
+## 3. Terminal ve Kabuklar
+
+- **Bash:** Standart ve yaygın kullanılan kabuk.  
+- **Zsh:** Hızlı, otomatik tamamlamalar ve temalar ile modern kullanım için **önerilen kabuk**.  
+- **Fish:** Kullanıcı dostu ve modern, bazı eski scriptlerle uyumsuz olabilir.
+
+> Terminal üzerinden tüm sistem yönetimi ve paket işlemleri gerçekleştirilir.
+
+---
+
+## 4. Dosya İzinleri ve fstab
+
+- `/etc/fstab` → Disk bölümlerinin otomatik mount edildiği yapılandırma dosyası  
+- **Dosya izinleri:**  
+  - `chmod` → Çalıştırma / okuma / yazma izinlerini değiştirir (`chmod +x dosya`)  
+  - `chown` → Sahipliği değiştirir  
+  - `chgrp` → Grup sahipliğini değiştirir
+
+---
+
+## 5. Sistem Servisleri ve systemd
+
+- CachyOS’ta servis yönetimi **systemd** ile yapılır.  
+- Servis yönetimi için `systemctl` kullanılır:  
+  - Başlat: `sudo systemctl start servis_ismi`  
+  - Durdur: `sudo systemctl stop servis_ismi`  
+  - Açılışta etkinleştir: `sudo systemctl enable servis_ismi`  
+  - Açılışta devre dışı bırak: `sudo systemctl disable servis_ismi`  
+  - Mask: `sudo systemctl mask servis_ismi` (servisin başlamasını tamamen engeller)  
+-Reenable:Maski kaldirmaya yarar
+  - Log görüntüleme: `journalctl -xe`  
+
+---
+
+## 6. Kullanıcılar ve Yetkiler
+
+- **Root:** Sistem yönetimi için tam yetkiye sahip kullanıcı.  
+- **Wheel grubu:** Sudo yetkisine sahip kullanıcıları içerir.  
+- **Sudo:** Root ayrıcalıklarını geçici olarak almak için kullanılır.  
+- Kullanıcı ekleme: `sudo useradd kullanıcı`  
+- Şifre değiştirme: `sudo passwd kullanıcı`
+
+---
+
+## 7. CHROOT
+
+- **chroot:** Sistem kök dizinini geçici olarak başka bir dizine taşır. Kurtarma, onarım ve sistem yükseltmeleri için kullanılır.  
+- CachyOS özel helper: **cachy-chroot** → CHROOT işlemlerini basitleştirir.  
+
+---
+
+## 8. Flatpak
+
+- **Flatpak nedir?**  
+  Linux uygulamalarını bağımlılıklardan bağımsız, güvenli bir şekilde dağıtmak için kullanılan paket sistemi.  
+
+- **Kurulum:**  
+```bash
+sudo pacman -S flatpak
